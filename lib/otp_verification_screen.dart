@@ -144,30 +144,33 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
             const SizedBox(
               height: 20,
             ),
-            ElevatedButton(
-                onPressed: () async{
-                  if (formKey.currentState!.validate()) {
-                    try {
-                      PhoneAuthCredential credential = PhoneAuthProvider.credential(
-                        verificationId: widget.verificationId,
-                        smsCode: otpTxtController.text,
-                      );
-                       await auth.signInWithCredential(credential);
-                       Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
-                    } on FirebaseAuthException catch (e) {
-                      snackBar(e.message);
-                    }catch (e) {
-                      snackBar(e.toString());
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                  onPressed: () async{
+                    if (formKey.currentState!.validate()) {
+                      try {
+                        PhoneAuthCredential credential = PhoneAuthProvider.credential(
+                          verificationId: widget.verificationId,
+                          smsCode: otpTxtController.text,
+                        );
+                         await auth.signInWithCredential(credential);
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                      } on FirebaseAuthException catch (e) {
+                        snackBar(e.message);
+                      }catch (e) {
+                        snackBar(e.toString());
+                      }
                     }
-                  }
-                  },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                   ),
-                ),
-                child: const Text("Verify")
+                  child: const Text("Verify",style: TextStyle(color: Colors.white),)
+              ),
             )
           ],
         ),
